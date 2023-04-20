@@ -53,7 +53,7 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
-    """Создать модель комментарии."""
+    """Создать модель Комментарии."""
 
     author = models.ForeignKey(
         User,
@@ -71,7 +71,6 @@ class Comment(models.Model):
     class Meta:
         verbose_name_plural = 'Комментарии'
         verbose_name = 'Комментарий'
-
 
     def __str__(self):
         return self.text
