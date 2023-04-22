@@ -1,16 +1,15 @@
-import os
-import environ
+"""Django settings for yatube project."""
 
-env = environ.Env()
-environ.Env.read_env()
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SECRET_KEY = env(
-    'SECRET_KEY',
-    default="unsafe-secret-key-45t548fh48fh4gefgh4734753erhg#$@#$")
-DEBUG = env('DEBUG', default='True') == 'True'
+from pathlib import Path
 
-ALLOWED_HOSTS = env(
-    'ALLOWED_HOSTS', default='localhost').split(', ')
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+SECRET_KEY = '052f*3hy^y*e59#o^&xomy1_l416d9u(v&yb9os-$9zvdo%(l&'
+
+DEBUG = True
+
+ALLOWED_HOSTS = ['*']
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -19,11 +18,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    'rest_framework',
+    'posts.apps.PostsConfig',
     'rest_framework.authtoken',
-    'posts',
-    'api',
+    'rest_framework',
+    'api'
 ]
 
 REST_FRAMEWORK = {
@@ -31,10 +29,9 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-    ],
+        'rest_framework.authentication.TokenAuthentication'
+    ]
 }
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -46,7 +43,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'yatube_api.urls'
-TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
+TEMPLATES_DIR = BASE_DIR / 'templates'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -65,12 +62,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'yatube_api.wsgi.application'
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -87,11 +86,19 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
 LANGUAGE_CODE = 'ru-RU'
-TIME_ZONE = 'Europe/Moscow'
+
+TIME_ZONE = 'UTC'
+
 USE_I18N = True
-USE_L10N = False
+
+USE_L10N = True
+
 USE_TZ = True
+
+
 STATIC_URL = '/static/'
+
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = BASE_DIR / 'media'
